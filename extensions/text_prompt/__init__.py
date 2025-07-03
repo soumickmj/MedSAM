@@ -183,7 +183,7 @@ class TextPromptDemo:
         ax.imshow(mask_image)
 
     @torch.no_grad()
-    def infer(self, text, slice_idx=None):
+    def infer(self, text, slice_idx=None, return_raw=False):
         """
         Perform inference on a single slice or current slice
         
@@ -224,7 +224,10 @@ class TextPromptDemo:
         low_res_pred = low_res_pred.detach().cpu().numpy().squeeze()
         seg = np.uint8(low_res_pred > 0.5)
 
-        return seg
+        if return_raw:
+            return seg, low_res_pred
+        else:
+            return seg
 
     def show(self, fig_size=5, alpha=0.95):
         """

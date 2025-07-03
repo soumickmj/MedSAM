@@ -56,7 +56,7 @@ def test_2d_functionality():
     test_image_2d = np.random.randint(0, 255, (256, 256), dtype=np.uint8)
     
     # Set the image
-    demo.set_image(test_image_2d)
+    demo.set_image_text(test_image_2d)
     
     # Verify properties
     assert demo.is_volume == False, "Should be detected as 2D image"
@@ -77,7 +77,7 @@ def test_3d_functionality():
     test_volume = np.random.randint(0, 255, (10, 256, 256), dtype=np.uint8)
     
     # Set the volume
-    demo.set_image(test_volume)
+    demo.set_image_text(test_volume)
     
     # Verify properties
     assert demo.is_volume == True, "Should be detected as 3D volume"
@@ -97,7 +97,7 @@ def test_inference():
     
     # Test 2D inference
     test_image_2d = np.random.randint(0, 255, (256, 256), dtype=np.uint8)
-    demo.set_image(test_image_2d)
+    demo.set_image_text(test_image_2d)
     
     # Test bbox inference
     bbox = np.array([50, 50, 150, 150])  # x_min, y_min, x_max, y_max
@@ -108,7 +108,7 @@ def test_inference():
     
     # Test 3D inference
     test_volume = np.random.randint(0, 255, (5, 256, 256), dtype=np.uint8)
-    demo.set_image(test_volume)
+    demo.set_image_text(test_volume)
     
     seg_3d = demo._infer(bbox, slice_idx=2)
     assert seg_3d.shape == (256, 256), f"Expected (256, 256), got {seg_3d.shape}"
@@ -125,7 +125,7 @@ def test_volume_utilities():
     
     # Create a 3D test volume
     test_volume = np.random.randint(0, 255, (5, 128, 128), dtype=np.uint8)
-    demo.set_image(test_volume)
+    demo.set_image_text(test_volume)
     
     # Add some mock segmentations
     demo.segmentations[0] = np.ones((128, 128), dtype=np.uint8)

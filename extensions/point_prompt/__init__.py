@@ -63,7 +63,7 @@ class PointPromptDemo:
         return x_1024, y_1024
 
     @torch.no_grad()
-    def infer(self, x, y, slice_idx=None):
+    def infer(self, x, y, slice_idx=None, return_raw=False):
         """
         Perform inference on a single slice or current slice
         
@@ -115,7 +115,10 @@ class PointPromptDemo:
 
         seg = np.uint8(low_res_pred > 0.5)
 
-        return seg
+        if return_raw:
+            return seg, low_res_pred
+        else:
+            return seg
 
     def show(self, fig_size=5, alpha=0.95, scatter_size=10):
         """
